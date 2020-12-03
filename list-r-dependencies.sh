@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source_files=($(find -name *.R))
+source_files=($(find -name "*.R"))
 
 grep -hE '\b(require|library)\([[:alnum:]\.]+\)' "${source_files[@]}" | \
     sed '/^[[:blank:]]*#/d' | \
@@ -10,6 +10,6 @@ grep -hE '\b(require|library)\([[:alnum:]\.]+\)' "${source_files[@]}" | \
 
 grep -hE '.*::' "${source_files[@]}" | \
     sed '/^[[:blank:]]*#/d' | \
-    sed -E 's/.*[^[:alpha:]]([[:alnum:]]*)::.*/\1/' | \
+    sed -E 's/.*[^[:alpha:]\.]([[:alnum:]\.]*)::.*/\1/' | \
     sort -uf \
     > DEPENDS.2
